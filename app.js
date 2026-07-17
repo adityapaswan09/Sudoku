@@ -39,7 +39,7 @@ const check = (num, pos) => {
             if (puzzle[i][j] == num) return 0;
         }
     }
-    if(!(num>1&&num<10)) return 0;
+    if (!(num > 1 && num < 10)) return 0;
 
     return 1;
 
@@ -90,6 +90,37 @@ for (let i = 0; i < 81; i++) {
 
     })
 }
+function sudkousolve() {
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+            if (puzzle[i][j] == 0) {
+                for (let c = 1; c <= 9; c++) {
+                    if (isvalid(i, j, c)) {
+                        puzzle[i][j] = c;
+                        if (sudkousolve())
+                            return true;
+                        else puzzle[i][j] = 0;
+                    }
+
+                }
+                return false;
+            }
+        }
+    }
+    return true;
+}
+function isvalid(row, col, c) {
+    for (let i = 0; i < 9; i++) {
+        let r = 3 * Math.floor(row / 3) + Math.floor(i / 3);
+        let cx = 3 * Math.floor(col / 3) + (i % 3);
+
+        if (puzzle[r][cx] == c) return false;
+        if (puzzle[row][i] == c) return false;
+        if (puzzle[i][col] == c) return false;
+
+    }
+    return true;
+}
 solve.addEventListener("click", () => {
     if (wincheck()) {
         p.innerText = "🎉 Congratulations! Sudoku solved!"
@@ -100,7 +131,7 @@ solve.addEventListener("click", () => {
     }
 })
 const clear = document.querySelector(".clear");
-clear.addEventListener("click", () => {
+const clean = () => {
     for (let i = 0; i < 81; i++) {
         if (!cells[i].disabled) {
             cells[i].value = "";
@@ -109,8 +140,8 @@ clear.addEventListener("click", () => {
         cells[i].classList.remove("red");
 
     }
-
-})
+}
+clear.addEventListener("click", clean);
 document.querySelector(".easy").addEventListener("click", () => {
     loadPuzzle("easy");
     unblock();
@@ -126,3 +157,10 @@ document.querySelector(".Difficult").addEventListener("click", () => {
     unblock();
     p.innerText = "Enter the puzzle and let the algorithm solve it."
 })
+document.querySelector(".ans").addEventListener("click", () => {
+    clean();
+    sudkousolve();
+    arrange(puzzle);
+})
+
+
