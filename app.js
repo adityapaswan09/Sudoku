@@ -39,6 +39,7 @@ const check = (num, pos) => {
             if (puzzle[i][j] == num) return 0;
         }
     }
+    if(!(num>1&&num<10)) return 0;
 
     return 1;
 
