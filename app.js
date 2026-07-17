@@ -112,9 +112,9 @@ function sudkousolve() {
 function isvalid(row, col, c) {
     for (let i = 0; i < 9; i++) {
         let r = 3 * Math.floor(row / 3) + Math.floor(i / 3);
-        let cx = 3 * Math.floor(col / 3) + (i % 3);
+        let boxcol = 3 * Math.floor(col / 3) + (i % 3);
 
-        if (puzzle[r][cx] == c) return false;
+        if (puzzle[r][boxcol] == c) return false;
         if (puzzle[row][i] == c) return false;
         if (puzzle[i][col] == c) return false;
 
@@ -161,6 +161,7 @@ document.querySelector(".ans").addEventListener("click", () => {
     clean();
     sudkousolve();
     arrange(puzzle);
+    p.innerText="Solved by backtracking algorithm";
 })
 
 
