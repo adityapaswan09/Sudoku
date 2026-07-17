@@ -68,12 +68,12 @@ for (let i = 0; i < 81; i++) {
         let num = Number(input.target.value);
         let row = Math.floor(i / 9);
         let column = i % 9;
-       if (input.target.value === "") {
-    puzzle[row][column] = 0;
-    cells[i].classList.remove("red");
-    solve.disabled = false;
-    return;
-}
+        if (input.target.value === "") {
+            puzzle[row][column] = 0;
+            cells[i].classList.remove("red");
+            solve.disabled = false;
+            return;
+        }
         if (check(num, i)) {
             // console.log(row,column);
             puzzle[row][column] = num;
@@ -101,25 +101,27 @@ solve.addEventListener("click", () => {
 const clear = document.querySelector(".clear");
 clear.addEventListener("click", () => {
     for (let i = 0; i < 81; i++) {
-       if (!cells[i].disabled) {
-    cells[i].value = "";
-    puzzle[Math.floor(i/9)][i%9] = 0;
-}
+        if (!cells[i].disabled) {
+            cells[i].value = "";
+            puzzle[Math.floor(i / 9)][i % 9] = 0;
+        }
+        cells[i].classList.remove("red");
+
     }
 
 })
 document.querySelector(".easy").addEventListener("click", () => {
     loadPuzzle("easy");
     unblock();
-    p.innerText="Enter the puzzle and let the algorithm solve it."
+    p.innerText = "Enter the puzzle and let the algorithm solve it."
 })
 document.querySelector(".medium").addEventListener("click", () => {
     loadPuzzle("medium");
     unblock();
-    p.innerText="Enter the puzzle and let the algorithm solve it."
+    p.innerText = "Enter the puzzle and let the algorithm solve it."
 })
 document.querySelector(".Difficult").addEventListener("click", () => {
     loadPuzzle("hard");
     unblock();
-    p.innerText="Enter the puzzle and let the algorithm solve it."
+    p.innerText = "Enter the puzzle and let the algorithm solve it."
 })
